@@ -1,0 +1,204 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    color: var(--text-color, #c26c6c);
+    overflow: hidden;
+    text-align: center;
+}
+
+.gradient-bg {
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4, #a18cd1);
+    background-size: 600% 600%;
+    animation: gradientShift 10s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50% }
+    50% { background-position: 100% 50% }
+    100% { background-position: 0% 50% }
+}
+
+.center-content {
+    position: relative;
+    top: 20%;
+}
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    animation: pulse 2s infinite;
+    width: 100%;       /* Điều chỉnh chiều rộng */
+    max-width: 600px; /* Giới hạn chiều rộng tối đa */
+    height: auto;     /* Chiều cao tự động theo nội dung */
+    line-height: 1.2; /* Khoảng cách dòng để điều chỉnh chiều cao */
+    text-align: center; /* Căn giữa nội dung nếu muốn */
+}
+
+.wish {
+    font-size: 1.4em;
+    animation: fadeIn 2s ease-in-out;
+}
+
+input, button {
+    font-size: 1.2em;
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 10px;
+}
+
+input {
+    width: 60%;
+}
+
+button {
+    background-color: #ff66cc;
+    color: white;
+    cursor: pointer;
+}
+
+.gif {
+    width: 200px;
+    margin: 20px;
+    border-radius: 15px;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Canvas chung: mặc định full màn hình */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+}
+.btn-chuc {
+    padding: 14px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 105, 135, 0.5);
+    transition: transform 0.2s, background 0.3s;
+    margin-top: 20px;
+    animation: pulseBtn 2s infinite;
+  }
+
+  .btn-chuc:hover {
+    background: linear-gradient(135deg, #fcb69f, #ff9a9e);
+    transform: scale(1.05);
+  }
+
+  @keyframes pulseBtn {
+    0%, 100% { box-shadow: 0 0 10px rgba(255, 174, 200, 0.6); }
+    50% { box-shadow: 0 0 25px rgba(255, 138, 170, 1); }
+  }
+
+.heart {
+  position: fixed;
+  pointer-events: none;
+  z-index: 999;
+  font-size: 24px;
+  color: pink;
+  text-shadow: 
+    0 0 5px #fff,
+    0 0 10px #ff9dd6,
+    0 0 20px #ff69b4,
+    0 0 30px #ff1493;
+  user-select: none;
+  transform: scale(0.8) rotate(0deg);
+  animation: floatUp 2s ease-out forwards, pulse 0.6s ease-in-out infinite;
+}
+
+/* Bay lên và mờ dần */
+@keyframes floatUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(0.8) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-25px) scale(1) rotate(-10deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-80px) scale(1.2) rotate(10deg);
+  }
+}
+
+/* Nhấp nháy nhẹ để lung linh */
+@keyframes pulse {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.2) rotate(5deg); }
+}
+
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-150px) scale(2);
+    opacity: 0;
+  }
+}
+
+.balloon {
+  position: absolute;
+  width: 40px;
+  height: 60px;
+  bottom: -60px;
+  border-radius: 50% 50% 50% 50%;
+  box-shadow: inset -3px -3px 5px rgba(0,0,0,0.2);
+  z-index: 999; /* nổi trên nền */
+}
+
+/* Dây bóng */
+.balloon::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 40px;
+  background: #555;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Keyframes riêng cho bóng bay */
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.9; }
+  100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+}
+
+
+/* Canvas riêng biệt cho fireworks */
+#fireworks-canvas {
+    z-index: 0;
+}
+
+/* Canvas riêng biệt cho confetti */
+#confetti-canvas {
+    z-index: 1;
+}
+
+/* Canvas riêng biệt cho sakura */
+#sakura-canvas {
+    z-index: 2;
+}
+
+

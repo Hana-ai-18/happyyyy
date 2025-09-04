@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Blow the Candle 🎂</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f6d365, #fda085);
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+}
+#wishText { font-size: 1.5rem; font-weight: bold; margin-bottom: 10px; text-shadow: 0 0 5px #000; z-index: 3; }
+#wishCountdown { font-size: 2rem; font-weight: bold; margin-bottom: 20px; text-shadow: 0 0 5px #000; z-index: 3; }
+#instruction { font-size: 1.2rem; font-weight: bold; color: #fff; text-shadow: 0 0 5px #000; z-index: 3; display:none; }
+#cake { position: relative; width: 200px; margin-bottom: 20px; transition: transform 1s; transform: translateY(90px); z-index: 3; }
+.tier { width: 100%; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); margin-bottom: 10px; position: relative; }
+.tier3 { background:#ffd6d9; height:80px; } /* dưới cùng */
+.tier2 { background:#ffb3c1; height:70px; width:140px; left:50%; transform: translateX(-50%); } /* giữa */
+.tier1 { background:#ff9a9e; height:60px; width:100px; left:50%; transform: translateX(-50%); } /* trên cùng */
+.candle { position: absolute; top: -50px; left: 50%; transform: translateX(-50%); width: 20px; height: 50px; background: #fff; border-radius: 5px; z-index: 3; }
+.flame { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 20px; height: 25px; background: radial-gradient(circle, #ffeb3b 0%, #ff9800 70%, transparent 80%); border-radius: 50%; animation: flicker 0.3s infinite alternate; box-shadow: 0 0 10px #ffeb3b, 0 0 20px #ff9800; cursor: pointer; }
+@keyframes flicker { from { transform: translateX(-50%) scale(1); } to { transform: translateX(-50%) scale(1.2); } }
+#message { position: absolute; top: 10%; left: 50%; transform: translateX(-50%); font-size: 3rem; display: none; font-weight: bold; color: #fff; text-shadow: 0 0 15px #000; z-index: 3; }
+canvas#fireworks { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+.flower { position: fixed; top: -50px; width: 40px; height: 40px; pointer-events: none; z-index: 2; animation: fall linear infinite; }
+@keyframes fall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+.heart { position: fixed; width: 20px; height: 20px; background: red; transform: rotate(45deg); pointer-events: none; z-index: 4; animation: fadeOut 1s forwards; }
+.heart::before, .heart::after { content: ""; position: absolute; width: 20px; height: 20px; background: red; border-radius: 50%; }
+.heart::before { top: -10px; left: 0; } .heart::after { left: 10px; top: 0; }
+@keyframes fadeOut { 0% { opacity: 1; transform: translateY(0) rotate(45deg); } 100% { opacity: 0; transform: translateY(-50px) rotate(45deg); } }
+</style>
+</head>
+<body>
+
+<div id="wishText">Phóc hãy nhắm mắt lại và ước điều gì đó 💭</div>
+<div id="wishCountdown">30</div>
+<div id="instruction">Hãy thổi thật mạnh vào nến 🕯️💨</div>
+
+<div id="cake">
+  <div class="tier tier1"></div>
+  <div class="tier tier2"></div>
+  <div class="tier tier3"></div>
+  <div class="candle"><div class="flame" id="flame"></div></div>
+</div>
+
+<div id="message">🎉 Happy Birthday! 🎂</div>
+<canvas id="fireworks"></canvas>
+
+<audio id="bgMusic" autoplay loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Variables
+const flame = document.getElementById("flame");
+const message = document.getElementById("message");
+const cake = document.getElementById("cake");
+const wishText = document.getElementById("wishText");
+const instruction = document.getElementById("instruction");
+const bgMusic = document.getElementById("bgMusic");
+const wishCountdown = document.getElementById("wishCountdown");
+let blown = false;
+
+// ===== 30s wish countdown =====
+let wishTime = 30;
+flame.style.pointerEvents = 'none'; // chưa thể thổi
+instruction.style.display = 'none'; // ẩn hướng dẫn
+const wishInterval = setInterval(()=>{
+  wishTime--;
+  wishCountdown.textContent = wishTime;
+  if(wishTime <= 0){
+    clearInterval(wishInterval);
+    wishCountdown.textContent = "⏳ Đã xong! Hãy thổi nến!";
+    instruction.style.display = 'block';
+    flame.style.pointerEvents = 'auto'; // bật thổi nến
+  }
+},1000);
+
+// ===== Blow out function =====
+function blowOut() {
+  if(blown) return;
+  blown = true;
+
+  flame.style.display = 'none';
+  wishText.style.display = 'none';
+  instruction.style.display = 'none';
+  wishCountdown.style.display = 'none';
+
+  cake.style.transform = "translateY(100px)";
+  message.style.display = 'block';
+  bgMusic.play();
+
+  startFireworks();
+  startFallingFlowers();
+
+  // Chuyển sang trang birthday.html sau 3s
+  setTimeout(() => {
+    window.location.href = "troll2.html";
+  }, 3000); // 3000ms = 3 giây
+}
+
+// ===== Fireworks =====
+const canvas = document.getElementById('fireworks');
+const ctx = canvas.getContext('2d');
+let particles = [];
+function resizeCanvas(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
+window.addEventListener('resize',resizeCanvas);
+resizeCanvas();
+class Particle{
+  constructor(x,y,color,speed,angle){
+    this.x=x;this.y=y;this.radius=Math.random()*3+2;this.color=color;
+    this.speed=speed;this.angle=angle;this.alpha=1;this.gravity=0.2;
+  }
+  update(){ this.x+=Math.cos(this.angle)*this.speed; this.y+=Math.sin(this.angle)*this.speed+this.gravity; this.speed*=0.98; this.alpha-=0.02; }
+  draw(){ ctx.save(); ctx.globalAlpha=this.alpha; ctx.beginPath(); ctx.arc(this.x,this.y,this.radius,0,Math.PI*2); ctx.fillStyle=this.color; ctx.fill(); ctx.restore(); }
+}
+function explode(x,y){
+  const colors=['#ff4d4d','#ffe066','#3ae374','#17c0eb','#7158e2','#f368e0','#ff9f1a'];
+  for(let i=0;i<60;i++){
+    const angle=Math.random()*2*Math.PI;
+    const speed=Math.random()*6+2;
+    const color=colors[Math.floor(Math.random()*colors.length)];
+    particles.push(new Particle(x,y,color,speed,angle));
+  }
+}
+function animate(){
+  requestAnimationFrame(animate);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(let i=particles.length-1;i>=0;i--){
+    const p=particles[i];
+    if(p.alpha<=0) particles.splice(i,1);
+    else { p.update(); p.draw(); }
+  }
+}
+animate();
+function autoFirework(){ explode(Math.random()*canvas.width, Math.random()*canvas.height*0.5); }
+function startFireworks(){ autoFirework(); setInterval(autoFirework,800); }
+
+// ===== Falling flowers =====
+function startFallingFlowers(){
+  setInterval(()=>{
+    const flower=document.createElement('img');
+    flower.src="static/img/hoa_anh_dao.png";
+    flower.className='flower';
+    const size=40+Math.random()*30;
+    flower.style.width=size+'px';
+    flower.style.height=size+'px';
+    flower.style.left=Math.random()*100+'vw';
+    flower.style.animationDuration=(5+Math.random()*5)+'s';
+    document.body.appendChild(flower);
+    setTimeout(()=>flower.remove(),11000);
+  },300);
+}
+
+// ===== Blow detection =====
+if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+  navigator.mediaDevices.getUserMedia({audio:true})
+  .then(stream=>{
+    const audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+    const source=audioCtx.createMediaStreamSource(stream);
+    const analyser=audioCtx.createAnalyser();
+    source.connect(analyser);
+    const dataArray=new Uint8Array(analyser.frequencyBinCount);
+    function detectBlow(){
+      analyser.getByteFrequencyData(dataArray);
+      let volume=dataArray.reduce((a,b)=>a+b)/dataArray.length;
+      if(volume>20) blowOut();
+      requestAnimationFrame(detectBlow);
+    }
+    detectBlow();
+  }).catch(err=>console.log("Micro không được bật:", err));
+}
+flame.addEventListener("click", blowOut);
+
+// ===== Heart cursor =====
+document.addEventListener('mousemove', function(e){
+  const heart=document.createElement('div');
+  heart.className='heart';
+  heart.style.left=e.clientX-12+'px';
+  heart.style.top=e.clientY-12+'px';
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),2000);
+});
+</script>
+</body>
+</html>

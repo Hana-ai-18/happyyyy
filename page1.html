@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday 💕</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .btns {
+      display: flex;
+      gap: 20px;
+      margin-top: 2rem;
+      position: relative;
+    }
+    button {
+      padding: 12px 25px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 25px;
+      background: #ff6f91;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+      position: relative;
+    }
+    button:hover {
+      background: #ff4d6d;
+      transform: scale(1.05);
+    }
+    #noBtn {
+      position: absolute;
+    }
+
+    /* Heart cursor effect */
+    .heart {
+      position: fixed;
+      pointer-events: none;
+      z-index: 999;
+      font-size: 24px;
+      color: pink;
+      text-shadow: 
+        0 0 5px #fff,
+        0 0 10px #ff9dd6,
+        0 0 20px #ff69b4,
+        0 0 30px #ff1493;
+      user-select: none;
+      transform: scale(0.8) rotate(0deg);
+      animation: floatUp 2s ease-out forwards, pulse 0.6s ease-in-out infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(0.8) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-25px) scale(1) rotate(-10deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-80px) scale(1.2) rotate(10deg);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.2) rotate(5deg); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Do you love me? 💘</h1>
+  <div class="btns">
+    <button id="yesBtn">Yes 💖</button>
+    <button id="noBtn">No 😏</button>
+    <button id="cancelBtn">Cancel 🙄</button>
+  </div>
+
+<script>
+const bgMusic = document.getElementById("bgMusic");
+const playBtn = document.getElementById("playMusicBtn");
+
+playBtn.addEventListener("click", () => {
+  bgMusic.play().catch(err => console.log("Không thể phát nhạc:", err));
+  playBtn.style.display = "none"; // ẩn nút sau khi nhấn
+});
+</script>
+
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const cancelBtn = document.getElementById("cancelBtn");
+
+    yesBtn.addEventListener("click", () => {
+      alert("Yayyy! Gấm biết mà. Gấm cũng iu Phóc nhìu lắm. 🥰");
+      window.location.href = "blow.html";
+    });
+
+    cancelBtn.addEventListener("click", () => {
+      alert("Không được cancel đâu nha. Gấm bùn lắm đó hic. 🙃");
+    });
+
+    // Nút No chạy trốn
+    noBtn.addEventListener("mouseenter", () => {
+      const x = Math.floor(Math.random() * 300) - 150;
+      const y = Math.floor(Math.random() * 200) - 100;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    // ======== Heart cursor effect ========
+    document.addEventListener('mousemove', function(e){
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.textContent = '💖'; // có thể thay bằng ❤️, 💜, …
+      heart.style.left = e.clientX - 12 + 'px';
+      heart.style.top = e.clientY - 12 + 'px';
+      document.body.appendChild(heart);
+      setTimeout(()=>heart.remove(), 2000); // icon tồn tại lâu hơn để nhìn đẹp
+    });
+  </script>
+</body>
+</html>

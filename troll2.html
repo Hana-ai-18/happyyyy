@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Mong muốn sinh nhật 🎁</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(120deg, #f6d365, #fda085);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    text-align: center;
+    color: #333;
+    overflow: hidden;
+  }
+
+  #box {
+    background: rgba(255,255,255,0.2);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+    z-index: 2;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  textarea {
+    width: 80%;
+    padding: 15px;
+    border-radius: 12px;
+    border: none;
+    font-size: 1rem;
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    resize: vertical;
+    min-height: 80px;
+    margin-bottom: 15px;
+  }
+
+  button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    background: #ff6f91;
+    color: white;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background: #ff4d6d;
+  }
+
+  .note {
+    font-size: 0.9rem;
+    color: #444;
+    margin-top: 15px;
+  }
+
+  /* Heart cursor effect */
+  .heart {
+    position: fixed;
+    pointer-events: none;
+    z-index: 999;
+    font-size: 24px;
+    color: pink;
+    text-shadow: 0 0 5px #fff, 0 0 10px #ff9dd6, 0 0 20px #ff69b4, 0 0 30px #ff1493;
+    user-select: none;
+    transform: scale(0.8) rotate(0deg);
+    animation: floatUp 2s ease-out forwards, pulse 0.6s ease-in-out infinite;
+  }
+
+  @keyframes floatUp {
+    0% { opacity: 1; transform: translateY(0) scale(0.8) rotate(0deg); }
+    50% { transform: translateY(-25px) scale(1) rotate(-10deg); }
+    100% { opacity: 0; transform: translateY(-80px) scale(1.2) rotate(10deg); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.2) rotate(5deg); }
+  }
+</style>
+</head>
+<body>
+<iframe src="music.html" style="display:none;" name="musicFrame"></iframe>
+
+<div id="box">
+  <h1>Phóc ơi! Nếu giờ có 1 điều mong muốn, Phóc muốn Gấm sẽ làm gì cho Phóc, và như thế nào ?
+    (Viết lẹ chứ chỉ được đặc quyền ngày sinh nhật thoai đó) 🎂💖</h1>
+
+  <textarea id="wishInput" placeholder="Viết điều mong muốn của Phóc vào đây. Nhập thật dài dài nha ..."></textarea>
+
+  <button id="sendBtn">Gửi (í có một điều mất ngờ nữa) 💌</button>
+
+  <div class="note">
+    Nếu có thể,Phóc cũng có thể gửi điều mong muốn này qua Messenger nhé! Hehee Gấm cụm muốn biết 💌
+  </div>
+</div>
+
+<script>
+  // ===== Heart cursor effect =====
+  document.addEventListener('mousemove', function(e){
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.textContent = '❤️';
+    heart.style.left = e.clientX - 12 + 'px';
+    heart.style.top = e.clientY - 12 + 'px';
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(), 2000);
+  });
+
+  // ===== Chuyển trang khi nhấn gửi =====
+  document.getElementById('sendBtn').addEventListener('click', () => {
+    const wish = document.getElementById('wishInput').value.trim();
+    if(!wish){
+      alert("Hic Phóc ưi hãy nhập điều Phóc mong muốn từ Gấm đi mờ. 😢");
+      return;
+    }
+    // Chuyển trang
+    window.location.href = "birthday.html";
+  });
+</script>
+
+</body>
+</html>

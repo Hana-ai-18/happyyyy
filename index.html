@@ -1,0 +1,46 @@
+<!-- page0.html -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>🎵 Mở nhạc yêu thích</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f6d365, #fda085);
+      text-align: center;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff7e5f;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    button:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>Trước tiên hãy mở một bài hát mà Phóc yêu thích nhá nhá 🎵</h1>
+  <button onclick="goToIndex()">Được rồi nha!</button>
+
+  <script>
+    function goToIndex() {
+      window.location.href = "page1.html"; // chuyển sang trang chính
+    }
+  </script>
+</body>
+</html>

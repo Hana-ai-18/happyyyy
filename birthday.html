@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>🎉 Happy Birthday!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(120deg, #ffe6f0, #ffd6e0, #ffc2d1, #ffd1e0); /* gradient hồng pastel */
+  background-size: 200% 200%;
+  animation: pastelFlow 12s ease infinite;
+  overflow: hidden;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto; /* cho phép lướt dọc */
+}
+
+.pastel-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: 
+    radial-gradient(circle at top left, #ffd6e0, transparent 60%),
+    radial-gradient(circle at bottom right, #ffc2d1, transparent 60%),
+    radial-gradient(circle at center, #ffe6f0, transparent 70%);
+  opacity: 0.35;
+  animation: floatOverlay 25s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+
+.container {
+  z-index: 10;
+  max-width: 700px;
+  width: 90%;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  padding: 40px;
+  border-radius: 30px;
+  background: rgba(92,116,189,0.12);
+  box-shadow: 0 8px 30px rgba(72,73,103,0.3);
+
+  /* ẩn scrollbar */
+  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.container::-webkit-scrollbar { /* WebKit */
+  width: 0;
+  height: 0;
+}
+@keyframes floatOverlay {
+  from { transform: translateY(0) rotate(0deg); }
+  to { transform: translateY(-30px) rotate(5deg); }
+}
+
+.container {
+  z-index: 10;
+  max-width: 700px;
+  width: 90%;
+  text-align: left;
+  backdrop-filter: blur(12px);
+  padding: 40px;
+  border-radius: 30px;
+  background: rgba(92,116,189,0.12);
+  box-shadow: 0 8px 30px rgba(72,73,103,0.3);
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 12px #00000066;
+}
+
+#typed-text {
+  font-size: 1rem;
+  line-height: 1.5;
+  min-height: 100px;
+  white-space: pre-wrap;
+  color: #e5895b; 
+  text-shadow: 1px 1px 8px #00000077;
+}
+
+.heart {
+  position: fixed;
+  animation: flyUp 2s ease-out forwards, sparkle 1.2s infinite;
+  pointer-events: none;
+  z-index: 999;
+  font-size: 24px;
+  color: pink;
+  text-shadow: 0 0 5px #fff, 0 0 10px currentColor;
+}
+
+@keyframes flyUp {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-150px) scale(1.8); opacity: 0; }
+}
+
+@keyframes sparkle {
+  0%,100%{opacity:1;transform:scale(1);}
+  50%{opacity:0.8;transform:scale(1.2);}
+}
+
+canvas#fireworks {
+  position: fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  z-index:1;
+  pointer-events:none;
+}
+
+.flower {
+  position: fixed;
+  top: -50px;
+  width: 40px;
+  height: 40px;
+  pointer-events: none;
+  z-index: 2;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+</style>
+</head>
+<body>
+<iframe src="music.html" style="display:none;" name="musicFrame"></iframe>
+
+<canvas id="fireworks"></canvas>
+<div class="pastel-overlay"></div>
+
+<div class="container">
+  <h2>🎉 Chúc mừng sinh nhật Phóc 🎂</h2>
+  <div id="typed-text"></div>
+</div>
+
+<script>
+  // ===== Typing effect =====
+  const text = `Phóc yêu dấu của tớ,
+Hôm nay Phóc thấy vui hông? 
+Chúc mừng sinh nhật Phóc! ❤️ Với tớ, đây là năm đầu tiên được dự sinh nhật của Phóc, và tớ cảm thấy mình thật may mắn.Hôm nay là một ngày thật đặc biệt, không chỉ vì Phóc đón tuổi mới, mà còn vì tớ được có cơ hội được làm điều gì đó bất ngờ cho Phóc nữa. Phóc à, tớ cảm thấy tớ thật sự may mắn lắm lun í.
+Tớ muốn Phóc biết rằng, từ khi có Phóc xuất hiện, tớ cảm thấy cuộc sống trở nên đầy màu sắc, đầy tiếng cười và ấm áp những ngày đầu vào Sài Gòn í. Những lúc tớ buồn, chỉ cần nghĩ đến Phóc, tớ lại thấy lòng nhẹ nhõm hơn. Những lần Phóc kiên nhẫn lắng nghe tớ kể đủ thứ chuyện linh tinh, những lần Phóc quan tâm, động viên tớ dù tớ chẳng nói ra, tất cả đều khiến tớ cảm nhận được điều ấm áp mà tớ chưa từng nghĩ mình có thể nhận được. Phóc à, tớ yêu cách Phóc là chính mình – mạnh mẽ, chân thành, tốt bụng và đôi khi ngốc nghếch theo một cách đáng yêu vô cùng. Tớ tự hào vì được đồng hành cùng Phóc í,  được cùng Phóc cười, vui, và cả những lúc mệt mỏi, cả hai đứa không còn xíu năng lượng nào nữa. Tất cả đều khiến tớ cảm thấy mình may mắn lắm, yêu thương Phóc nhiều hơn nữa.
+Trong tuổi mới này, tớ chúc Phóc không chỉ hạnh phúc, vui vẻ, mạnh khỏe, mà còn đạt được mọi ước mơ Phóc đang theo đuổi. Chúc Phóc luôn tự tin vào chính mình, luôn biết rằng tớ sẽ luôn ở đây – bất cứ lúc nào Phóc cần. Tớ sẽ là một cô bạn gái luôn mạnh mẽ của Phóc khi Phóc mệt mỏi, là người cổ vũ khi Phóc căng thẳng, là người cười cùng Phóc trong mọi khoảnh khắc đáng nhớ. Tớ hứa sẽ yêu Phóc trọn vẹn, vô điều kiện, dù tớ biết tương lai cuộc đời có đưa chúng ta qua bao nhiêu thử thách.
+Phóc à, tớ yêu tất cả mọi điều về Phóc – từ nụ cười, ánh mắt, cho đến cách Phóc chăm sóc và quan tâm đến mọi người xung quanh. Tớ yêu cách Phóc khiến tớ cảm thấy an toàn, được yêu thương, và cảm giác như không gì có thể làm tớ cô đơn khi có Phóc ở bên. Tớ biết mình không hoàn hảo, nhưng nhờ Phóc, tớ muốn trở thành phiên bản tốt nhất của chính mình, vì tớ muốn cùng Phóc đồng hành, vượt qua những thử thách phía trước.
+Hãy để tuổi mới này của Phóc là một hành trình tràn đầy những điều kỳ diệu, những khoảnh khắc đáng nhớ và thật nhiều nụ cười. Tớ không hứa sẽ cho Phóc cả thế giới, nhưng tớ hứa sẽ cho Phóc tất cả những gì tớ có thể – trọn vẹn, chân thành, và yêu thương Phóc.
+Phóc ơi, tớ thương Phóc nhiều lắm, hơn cả những lời nói có thể diễn tả. Tớ sẽ luôn yêu Phóc, bảo vệ Phóc và đồng hành cùng Phóc trong mọi điều, từ những niềm vui nhỏ bé đến những giấc mơ lớn lao nhất. Tớ yêu Phóc, yêu từng khoảnh khắc được đồng hành cùng Phóc.
+Chúc mừng sinh nhật Phóc – người con trai mà tớ yêu thương. Iu iu Phóc nhiều nhiều!  💕 Nhớ nhớ 🥹.  Phóc có iu tớ hem?`;
+  const typedEl = document.getElementById('typed-text');
+  let i = 0;
+  function typeWriter() {
+    if(i < text.length){
+      typedEl.textContent += text.charAt(i);
+      i++;
+      let delay = 60;
+      if(text.charAt(i-1)==='\n') delay=400;
+      setTimeout(typeWriter, delay);
+    }
+  }
+  typeWriter();
+
+  // ===== Heart effect =====
+  document.addEventListener('mousemove', e=>{
+    const heart=document.createElement('div');
+    heart.className='heart';
+    heart.textContent='💖';
+    heart.style.left=e.clientX-12+'px';
+    heart.style.top=e.clientY-12+'px';
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),2000);
+  });
+
+  // ===== Fireworks =====
+  const canvas=document.getElementById('fireworks');
+  const ctx=canvas.getContext('2d');
+  let particles=[];
+  let baseSize=Math.min(window.innerWidth, window.innerHeight);
+
+  function resizeCanvas(){canvas.width=window.innerWidth; canvas.height=window.innerHeight; baseSize=Math.min(canvas.width,canvas.height);}
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  class Particle {
+    constructor(x,y,color,speed,angle){
+      this.x=x; this.y=y;
+      this.radius=baseSize*(0.003+Math.random()*0.005);
+      this.color=color;
+      this.speed=speed*(baseSize*0.0015);
+      this.angle=angle;
+      this.alpha=1;
+      this.gravity=baseSize*0.0002;
+    }
+    update(){
+      this.x+=Math.cos(this.angle)*this.speed;
+      this.y+=Math.sin(this.angle)*this.speed+this.gravity;
+      this.speed*=0.98;
+      this.alpha-=0.015;
+    }
+    draw(){
+      ctx.save();
+      ctx.globalAlpha=this.alpha;
+      ctx.beginPath();
+      ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
+      ctx.fillStyle=this.color;
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  function explode(x,y){
+    const colors=['#ff4d4d','#ffe066','#3ae374','#17c0eb','#7158e2','#f368e0','#ff9f1a'];
+    for(let i=0;i<60;i++){
+      const angle=Math.random()*2*Math.PI;
+      const speed=Math.random()*6+2;
+      const color=colors[Math.floor(Math.random()*colors.length)];
+      particles.push(new Particle(x,y,color,speed,angle));
+    }
+  }
+
+  canvas.addEventListener('click', e=>explode(e.clientX,e.clientY));
+
+  function animate(){
+    requestAnimationFrame(animate);
+    ctx.fillStyle="rgba(255,255,255,0.05)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    for(let i=particles.length-1;i>=0;i--){
+      const p=particles[i];
+      if(p.alpha<=0) particles.splice(i,1);
+      else{p.update(); p.draw();}
+    }
+  }
+  setInterval(()=>explode(Math.random()*canvas.width*0.8+canvas.width*0.1,Math.random()*canvas.height*0.4+canvas.height*0.1),1000);
+  animate();
+
+  // ===== Falling flowers =====
+  function createFlower(){
+    const flower=document.createElement('img');
+    flower.src="static/img/hoa_anh_dao.png";
+    flower.className="flower";
+    const size=baseSize*(0.04+Math.random()*0.05);
+    flower.style.width=size+'px';
+    flower.style.height=size+'px';
+    flower.style.left=Math.random()*100+'vw';
+    flower.style.animationDuration=(5+Math.random()*5)+'s';
+    document.body.appendChild(flower);
+    setTimeout(()=>flower.remove(),11000);
+  }
+  setInterval(createFlower,300);
+</script>
+
+</body>
+</html>
